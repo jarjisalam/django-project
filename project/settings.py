@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import dj_database_url
 import django
 # import django_heroku
 from pathlib import Path
@@ -86,13 +87,16 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+# DATABASES["default"]=dj_database_url.parse("postgres://django_render_project_user:IlVMHI0cDJAlLTvEw7F351sKvvndvUBS@dpg-cjgvacj37aks73fjdlf0-a.oregon-postgres.render.com/django_render_project")
+DATABASES={
+    "default": dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -131,6 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/' 
+MEDIA_URL='/media'
 
 import os
 STATICFILES_DIRS=[
